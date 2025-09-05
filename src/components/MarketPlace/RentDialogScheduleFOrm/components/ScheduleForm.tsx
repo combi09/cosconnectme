@@ -217,7 +217,7 @@ const ScheduleForm = ({ costumeInfo }: ScheduleFormProps) => {
                         <span>Min: {costumeInfo.minRentalDays} days</span>
                         <span>Max: {costumeInfo.maxRentalDays} days</span>
                         <span>Daily rate: ₱{costumeInfo.dailyRate}</span>
-                        <span className="font-semibold text-rose-700">Delivery Only</span>
+                        {/* <span className="font-semibold text-rose-700">Delivery Only</span> */}
                     </div>
                 </AlertDescription>
             </Alert>
@@ -413,10 +413,10 @@ const ScheduleForm = ({ costumeInfo }: ScheduleFormProps) => {
                                 <span>Security Deposit</span>
                                 <span>₱{costumeInfo.securityDeposit}</span>
                             </div>
-                            <div className="flex justify-between">
+                            {/* <div className="flex justify-between">
                                 <span>Delivery</span>
                                 <span className="text-green-600 font-medium">Included</span>
-                            </div>
+                            </div> */}
                             <hr className="border-rose-200" />
                             <div className="flex justify-between font-semibold text-rose-800">
                                 <span>Total</span>

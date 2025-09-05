@@ -361,7 +361,7 @@ export const RentalBookingDialog: React.FC<RentalBookingDialogProps> = ({
         try {
             console.log("Form submit handler called with:", formData)
 
-            // FIXED: Map form data to match schema exactly
+            // Transform frontend data to match backend schema
             const submissionData: RentalBookingFormData = {
                 costume_id: costumeId || formData.costume_id || "",
                 schedule: {
@@ -369,7 +369,7 @@ export const RentalBookingDialog: React.FC<RentalBookingDialogProps> = ({
                     end_date: formData.schedule?.end_date || "",
                     delivery_method: formData.schedule?.delivery_method || "delivery",
                     delivery_address: formData.schedule?.delivery_address || "",
-                    special_instructions: formData.schedule?.special_instructions || ""
+                    // Remove special_instructions from here
                 },
                 personal_details: {
                     user_id: user?.id || "",
@@ -381,20 +381,21 @@ export const RentalBookingDialog: React.FC<RentalBookingDialogProps> = ({
                 },
                 payment_method: {
                     type: "gcash",
-                    // FIXED: Use correct field names from schema
+                    // Simplified to match backend schema
                     gcash_number: formData.payment_method?.gcash_number || "",
-                    refund_gcash_number: formData.payment_method?.refund_gcash_number || "",
-                    refund_account_name: formData.payment_method?.refund_account_name || ""
                 },
                 agreements: {
                     terms_accepted: formData.agreements?.terms_accepted || false,
                     damage_policy: formData.agreements?.damage_policy || false,
                     cancellation_policy: formData.agreements?.cancellation_policy || false
-                }
+                },
+                // Add special_instructions at root level
+                special_instructions: formData.schedule?.special_instructions || ""
             }
 
             console.log("Prepared submission data:", submissionData)
 
+            // Validate against the updated schema
             try {
                 // Validate final data against schema
                 rentalBookingSchema.parse(submissionData)
@@ -429,7 +430,7 @@ export const RentalBookingDialog: React.FC<RentalBookingDialogProps> = ({
                     <div className="flex items-center justify-between">
                         <DialogTitle className="text-2xl font-semibold flex items-center gap-2">
                             <Package className="h-6 w-6 text-rose-500" />
-                            {showPaymentSuccess ? "Payment Required" : "Rent Costume - Delivery Only"}
+                            {showPaymentSuccess ? "Payment Required" : "Rent Costume"}
                         </DialogTitle>
                     </div>
                     {!showPaymentSuccess && (

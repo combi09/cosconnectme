@@ -1,12 +1,11 @@
 import { z } from "zod"
-
-// Schema definitions with proper validation
+// Schema definitions with proper validation - UPDATED to match backend
 export const scheduleSchema = z.object({
     start_date: z.string().min(1, "Start date is required"),
     end_date: z.string().min(1, "End date is required"),
     delivery_method: z.enum(["delivery", "pickup"]).default("delivery"),
     delivery_address: z.string().min(1, "Delivery address is required"),
-    special_instructions: z.string().optional().default(""),
+    // Removed special_instructions from here - it goes to root level
 })
 
 export const personalDetailsSchema = z.object({
@@ -14,27 +13,17 @@ export const personalDetailsSchema = z.object({
     first_name: z.string().min(1, "First name is required").min(2, "First name must be at least 2 characters"),
     last_name: z.string().min(1, "Last name is required").min(2, "Last name must be at least 2 characters"),
     email: z.string().min(1, "Email is required").email("Please enter a valid email address"),
-    phone_number: z.string().min(1, "Phone number is required").regex(/^\+63\d{10}$/, "Please enter a valid Philippine phone number"),
-    date_of_birth: z.string().min(1, "Date of birth is required").refine((date) => {
-        const birthDate = new Date(date)
-        const today = new Date()
-        const age = today.getFullYear() - birthDate.getFullYear()
-        const monthDiff = today.getMonth() - birthDate.getMonth()
-        if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < birthDate.getDate())) {
-            return age - 1 >= 18
-        }
-        return age >= 18
-    }, "You must be at least 18 years old"),
+    // Updated to match backend validation
+    phone_number: z.string().min(3, "Phone number is required"),
+    // Updated to match backend validation
+    date_of_birth: z.string().datetime("Date of birth must be a valid ISO date"),
 })
 
 export const paymentMethodSchema = z.object({
     type: z.enum(["gcash"]).default("gcash"),
+    // Simplified to match backend - only gcash_number
     gcash_number: z.string().min(1, "GCash number is required")
         .regex(/^\+63\d{10}$/, "Please enter a valid Philippine GCash number"),
-    refund_gcash_number: z.string().min(1, "Refund GCash number is required")
-        .regex(/^\+63\d{10}$/, "Please enter a valid Philippine GCash number"),
-    refund_account_name: z.string().min(1, "Refund account name is required")
-        .min(2, "Name must be at least 2 characters")
 })
 
 export const agreementsSchema = z.object({
@@ -50,6 +39,8 @@ export const rentalBookingSchema = z.object({
     personal_details: personalDetailsSchema,
     payment_method: paymentMethodSchema,
     agreements: agreementsSchema,
+    // Add special_instructions at root level to match backend
+    special_instructions: z.string().optional().default(""),
 })
 
 // Partial schema for step-by-step validation (optional fields for intermediate steps)
@@ -104,4 +95,6 @@ export interface RentalCalculation {
     securityDeposit: number
     tax: number
     total: number
+
 }
+

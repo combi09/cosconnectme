@@ -110,10 +110,10 @@ export const RentSummary: React.FC<RentSummaryProps> = ({ costumeInfo }) => {
                     )}
                     <div className="flex justify-between">
                         <span className="text-gray-600">Delivery Method:</span>
-                        <span className="font-medium text-green-600 flex items-center gap-1">
+                        {/* <span className="font-medium text-green-600 flex items-center gap-1">
                             <Truck className="h-4 w-4" />
                             Delivery Only
-                        </span>
+                        </span> */}
                     </div>
                 </CardContent>
             </Card>
@@ -206,10 +206,10 @@ export const RentSummary: React.FC<RentSummaryProps> = ({ costumeInfo }) => {
                                 <span>Security Deposit</span>
                                 <span>₱{costumeInfo.securityDeposit || 0}</span>
                             </div>
-                            <div className="flex justify-between">
+                            {/* <div className="flex justify-between">
                                 <span>Delivery</span>
                                 <span className="text-green-600 font-medium">Included</span>
-                            </div>
+                            </div> */}
                             <hr className="border-rose-200" />
                             <div className="flex justify-between font-semibold text-rose-800 text-base">
                                 <span>Total</span>

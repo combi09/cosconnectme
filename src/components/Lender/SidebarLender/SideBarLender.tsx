@@ -190,13 +190,13 @@ const SidebarLender = memo(() => {
         {
             title: "Rentals",
             icon: ShoppingCart,
-            badge: 5, // Replace with actual data
+            /* badge: 5, */ // Replace with actual data
             children: [
                 {
                     title: "Messages",
                     icon: MessageCircle,
                     href: "/messages",
-                    badge: 3 // Replace with actual data
+                   /*  badge: 3 */ // Replace with actual data
                 },
                 { title: "Rental List", icon: ListOrdered, href: "/lender/rental/list" },
                 { title: "Payment History", icon: CreditCard, href: "/lender/rental/payments" },
